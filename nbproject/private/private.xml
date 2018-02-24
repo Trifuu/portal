@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>includes/ajax/add_new_dashboard.php.php</url>
+            <bookmark id="1">
+                <name/>
+                <line>33</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/var/www/html/hermes/content/before_login/controller.php</file>
+            <file>file:/var/www/html/hermes/content/before_login/view_login.php</file>
+            <file>file:/var/www/html/hermes/assets/js/app/home/dashboard.js</file>
+            <file>file:/var/www/html/hermes/assets/js/app/home/home.js</file>
+            <file>file:/var/www/html/hermes/index.php</file>
+            <file>file:/var/www/html/hermes/includes/Class/User.php</file>
+        </group>
+    </open-files>
+</project-private>

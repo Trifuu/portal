@@ -1,0 +1,11 @@
+Options +FollowSymLinks -MultiViews -Indexes
+
+DirectoryIndex index.php index.html index.htm
+
+RewriteEngine On
+RewriteBase /hermes/
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule  ^([a-z-_]+)/([a-z-_]+)/  index.php?page=$1&view=$2 [QSA]
