@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Creat de scriptul facut de Marius Trifu
  * La data de 04-09-2017 si ora 21:38:16
@@ -35,7 +36,12 @@ function var_dump_custom($output) {
     echo "</pre>";
 }
 
-function nli_pages() {
-    global $page, $view, $user;
-    return $user == null && !(($page == "login") && ($view == "login-action" || $view == "logout")) ? true : false;
+function tip_simbol($tip) {
+    if ($tip == "Temperatură") {
+        echo '<i style="color:red" class="fa fa-thermometer-three-quarters" aria-hidden="true"></i>';
+    } else if ($tip == "Luminozitate") {
+        echo '<i style="color:yellow" class="fa fa-sun-o" aria-hidden="true"></i>';
+    } else if ($tip == "Umiditate") {
+        echo '<i style="color:blue" class="fa fa-tint" aria-hidden="true"></i>';
+    }
 }

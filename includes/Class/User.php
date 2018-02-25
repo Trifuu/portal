@@ -53,10 +53,11 @@ class User extends Db {
             die($e->getMessage());
         }
     }
+
     public function login($sid) {
-        
+
         $user = (new Users)->findSID($sid);
-        if ($user!== false) {
+        if ($user !== false) {
             $this->setUser($user["id"], $user["nume"], $user["prenume"], $user["email"], $user["parola"], $user["telefon"], $user["tip"], true);
             return true;
         }
@@ -67,7 +68,8 @@ class User extends Db {
         $info = (new Users())->selectUser($email);
         $this->setUser($info["id"], $info["nume"], $info["prenume"], $info["email"], $info["parola"], $info["telefon"], $info["tip"], "true");
     }
-    public function disconnect(){
+
+    public function disconnect() {
         try {
             $stmt = parent::$db->prepare("update Users set sid=0 where email=:email");
             $stmt->bindParam(":email", $this->email, PDO::PARAM_STR, 64);
@@ -76,6 +78,7 @@ class User extends Db {
             die($e->getMessage());
         }
     }
+
     //---------------------------------Dashboard-----------------------------------------
     public function selectAllDashboards() {
         try {
@@ -169,7 +172,7 @@ class User extends Db {
         }
         return $rez === false ? null : $rez;
     }
-
+    
     public function selectSensor($dashboard, $nume) {
         try {
             $stmt = parent::$db->prepare("select * from Sensor where id_dashboard=:id and nume=:nume");
@@ -183,21 +186,25 @@ class User extends Db {
         return $rez === false ? null : $rez;
     }
 
-    public function addSensor($dashboard, $um, $nume, $zecimale) {
-        if ($um == "Celsius" || $um == "Kelvin") {
-            $tip = "temperatura";
-        } else {
-            $tip = "temperatura";
+    public function addSensor($dashboard, $tip, $nume, $zecimale) {
+        $um = "";
+        if ($tip == "Temperatură") {
+            $um = "°C";
+        } else if ($tip == "Luminozitate") {
+            $um = "lux";
+        } else if ($tip == "Umiditate") {
+            $um = "%";
         }
         $nr = $this->getNrSensors($dashboard)["nr"];
         $nr++;
         try {
-            $stmt = parent::$db->prepare("insert into Sensor (id_dashboard,um,pozitie,nume,zecimale) values (:id,:um,:nr,:nume,:zecimale)");
+            $stmt = parent::$db->prepare("insert into Sensor (id_dashboard,um,pozitie,nume,zecimale,tip) values (:id,:um,:nr,:nume,:zecimale,:tip)");
             $stmt->bindParam(":id", $dashboard, PDO::PARAM_INT);
             $stmt->bindParam(":um", $um, PDO::PARAM_STR, 32);
             $stmt->bindParam(":nr", $nr, PDO::PARAM_INT);
             $stmt->bindParam(":nume", $nume, PDO::PARAM_STR, 64);
             $stmt->bindParam(":zecimale", $zecimale, PDO::PARAM_INT);
+            $stmt->bindParam(":tip", $tip, PDO::PARAM_STR, 32);
             $stmt->execute();
         } catch (PDOException $e) {
             die($e->getMessage());
@@ -216,6 +223,38 @@ class User extends Db {
         return $rez === false ? null : $rez;
     }
 
+    public function updateSensor($id,$nume, $tip, $zecimale) {
+        $um = "";
+        if ($tip == "Temperatură") {
+            $um = "°C";
+        } else if ($tip == "Luminozitate") {
+            $um = "lux";
+        } else if ($tip == "Umiditate") {
+            $um = "%";
+        }
+        try {
+            $stmt = parent::$db->prepare("update Sensor set um=:um,nume=:nume,zecimale=:zecimale,tip=:tip where id=:id");
+            $stmt->bindParam(":um", $um, PDO::PARAM_STR, 32);
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+            $stmt->bindParam(":nume", $nume, PDO::PARAM_STR, 64);
+            $stmt->bindParam(":zecimale", $zecimale, PDO::PARAM_INT);
+            $stmt->bindParam(":tip", $tip, PDO::PARAM_STR, 32);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
+    
+    public function deleteSensor($id){
+        $this->deleteSensorValues($id);
+        try {
+            $stmt = parent::$db->prepare("delete from Sensor where id=:id");
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
     //----------------------------Value----------------------------------------
     public function selectSensorValues($id_sensor) {
         try {
@@ -240,4 +279,31 @@ class User extends Db {
         }
     }
 
+    public function getLastSensorValue($dashboard) {
+        try {
+            $stmt = parent::$db->prepare(""
+                    . "select v.data,v.id_sensor,v.valoare,s.pozitie from Value v,Sensor s "
+                    . "where s.id_dashboard=:dashboard and s.id=v.id_sensor "
+                    . "GROUP BY v.id_sensor,v.data,v.valoare,s.pozitie "
+                    . "HAVING v.data=("
+                    . "select max(data) from Value v2 "
+                    . "where v2.id_sensor=v.id_sensor"
+                    . ")");
+            $stmt->bindParam(":dashboard", $dashboard, PDO::PARAM_INT);
+            $stmt->execute();
+            $rez = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+        return $rez == false ? null : $rez;
+    }
+    public function deleteSensorValues($id){
+        try {
+            $stmt = parent::$db->prepare("delete from Value where id_sensor=:id");
+            $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            die($e->getMessage());
+        }
+    }
 }

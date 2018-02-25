@@ -12,3 +12,5 @@ $content = '<main class="mdl-layout mdl-color--grey-100">'
         . '</main>';
 
 $_user->disconnect();
+
+redirect(getUrl("before_login", "login"));

@@ -17,7 +17,6 @@ require_once _ROOT_INCLUDES . "Class/Db.php";
 require_once _ROOT_INCLUDES . "Class/User.php";
 require_once _ROOT_INCLUDES . "Class/Users.php";
 require_once _ROOT_INCLUDES . "functions.php";
-require_once _ROOT_INCLUDES . "functions_users.php";
 
 
 $title_app_name = "Hermes";

@@ -7,6 +7,8 @@ $(document).ready(function () {
     var modal_dashboard = document.getElementById('modal_add_dashboard');
     var modal_sensor = document.getElementById('modal_add_sensor');
     var modal_grafic = document.getElementById('modal_grafic_sensor');
+    var modal_edit_sensor = document.getElementById('modal_edit_sensor');
+    var modal_operation_sensor = document.getElementById('modal_operation_sensor');
 
     // When the user clicks the button, open the modal 
     $("#add_dashboard").click(function () {
@@ -27,6 +29,14 @@ $(document).ready(function () {
 
     $(".close3").click(function () {
         modal_grafic.style.display = "none";
+        $(".grafic_content").empty();
+    });
+    $(".close4").click(function () {
+        modal_edit_sensor.style.display = "none";
+    });
+    $(".close5").click(function () {
+        modal_operation_sensor.style.display = "none";
+        $(".operation_body").empty();
     });
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
@@ -36,9 +46,16 @@ $(document).ready(function () {
             modal_sensor.style.display = "none";
         } else if (event.target == modal_grafic) {
             modal_grafic.style.display = "none";
+            $(".grafic_content").empty();
+        } else if (event.target == modal_edit_sensor) {
+            modal_edit_sensor.style.display = "none";
+        } else if (event.target == modal_operation_sensor) {
+            modal_operation_sensor.style.display = "none";
+            $(".operation_body").empty();
         }
     }
 
+    //creeaza un form si reincarca pagina in dashbordul selectat
     function load_dashboard(dashboard) {
         $("#add_form").append("\n\
                 <form id='form_trick' method='post' action='" + _SITE_BASE + "'>\n\
@@ -77,14 +94,14 @@ $(document).ready(function () {
         modal_sensor.style.display = "none";
         var nume = document.getElementById("nume_sensor").value;
         var zecimale = document.getElementById("decimals_sensor").value;
-        var um = document.getElementById("um_sensor").value;
+        var tip = document.getElementById("tip_sensor").value;
         $.ajax({
             type: "POST",
             url: _SITE_BASE + "includes/ajax/add_new_sensor.php",
             data: {
                 nume: nume,
                 zecimale: zecimale,
-                um: um,
+                tip: tip,
                 dashboard: dashboard_id
             },
             success: function (event) {
@@ -116,15 +133,14 @@ $(document).ready(function () {
             },
             dataType: "json",
             success: function (event) {
-                $("#grafic_user").html("");
+                $(".grafic_content").append('<canvas id="myChart" width="100" height="100"></canvas>');
                 modal_grafic.style.display = "block";
-                var ctx = document.getElementById("myChart").getContext('2d');
 
                 var min = Math.min.apply(Math, event.valoare);
                 var max = Math.max.apply(Math, event.valoare);
                 min = min - (max - min) * 0.2;
                 max = max + (max - min) * 0.2;
-                var myChart = new Chart(ctx, {
+                var myChart = new Chart($("#myChart"), {
                     type: 'line',
                     data: {
                         labels: event.data,
@@ -179,4 +195,92 @@ $(document).ready(function () {
             },
         });
     });
+    function position_element(str) {
+        if (str == "Număr") {
+            return 1;
+        } else if (str == "Temperatură") {
+            return 2;
+        } else if (str == "Luminozitate") {
+            return 3;
+        } else if (str == "Umiditate") {
+            return 4;
+        }
+    }
+    $(".edit_senzor").click(function (e) {
+        var id_senzor = $(this).data("id");
+        var poz_senzor = $(this).data("poz");
+
+        $("#edit_nume_sensor").val(sensors[poz_senzor]["nume"]);
+        $('#edit_nume_sensor').parent().addClass('is-dirty');
+
+        $("#lista_zecimale_edit li:nth-child(" + (Number(sensors[poz_senzor]["zecimale"]) + 1) + ")").attr("data-selected", "true");
+        $("#lista_tip_edit li:nth-child(" + position_element(sensors[poz_senzor]["tip"]) + ")").attr("data-selected", "true");
+        getmdlSelect.init(".getmdl-select");
+
+        modal_edit_sensor.style.display = "block";
+        $("#save_senzor_edit").click(function (e) {
+            modal_edit_sensor.style.display = "none";
+            var nume = document.getElementById("edit_nume_sensor").value;
+            var zecimale = document.getElementById("edit_decimals_sensor").value;
+            var tip = document.getElementById("edit_tip_sensor").value;
+            $.ajax({
+                type: "POST",
+                url: _SITE_BASE + "includes/ajax/update_sensor.php",
+                data: {
+                    nume: nume,
+                    zecimale: zecimale,
+                    tip: tip,
+                    dashboard: dashboard_id,
+                    id: id_senzor
+                },
+                success: function (event) {
+                    if (event != 1) {
+                        alert(event);
+                    } else {
+                        load_dashboard(poz_dashboard);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    //alert(status);
+                },
+            });
+        });
+    });
+    $(".operation_senzor").click(function (e) {
+        var id_senzor = $(this).data("id");
+        var poz_senzor = $(this).data("poz");
+        $(".operation_body").append("<textarea id='editor'></textarea>");
+        modal_operation_sensor.style.display = "block";
+        var code=$("#editor")[0];
+        var editor = CodeMirror.fromTextArea(code, {
+            lineNumbers: true
+        });
+    });
+    $(".delete_senzor").click(function (e) {
+        var id_senzor = $(this).data("id");
+        if (confirm("Stergerea este definitiva!")) {
+            $.ajax({
+                type: "POST",
+                url: _SITE_BASE + "includes/ajax/delete_senzor.php",
+                data: {
+                    id: id_senzor,
+                    dashboard: dashboard_id
+                },
+                success: function (event) {
+                    if (event != 1) {
+                        alert(event);
+                    } else {
+                        load_dashboard(poz_dashboard);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    //alert(status);
+                },
+            });
+        } else {
+            console.log("cancel");
+        }
+
+    });
+
 });

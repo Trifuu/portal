@@ -36,7 +36,7 @@ VALUES
 CREATE TABLE `Hermes`.`Dashboard` (
     `id` INT NOT NULL AUTO_INCREMENT ,
     `id_user` INT NOT NULL ,
-    `tip` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'general',
+    `tip` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `nume` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
     `data` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
     PRIMARY KEY (`id`)
@@ -45,7 +45,7 @@ CREATE TABLE `Hermes`.`Dashboard` (
 CREATE TABLE `Hermes`.`Sensor` (
     `id` INT NOT NULL AUTO_INCREMENT ,
     `id_dashboard` INT NOT NULL , 
-    `tip` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
+    `tip` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Numar', 
     `um` VARCHAR(32) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , 
     `pozitie` INT NOT NULL , 
     `nume` VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL ,

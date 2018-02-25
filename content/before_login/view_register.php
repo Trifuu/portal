@@ -6,7 +6,7 @@
  */
 defined("autorizare") or die("Nu aveti autorizare");
 
-    $js[] = "app/register/dashboard.js";
+    $js[] = "app/before_login/register.js";
 
 $title_app_title = "Register";
 

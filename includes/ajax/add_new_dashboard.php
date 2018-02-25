@@ -14,7 +14,7 @@ include "includes/config.php";
 
 if($_user->isLogged()){
     if(isset($_POST["nume"]) && isset($_POST["tip"])){
-        if($_POST["tip"]=="Public" || $_POST["tip"]=="Private"){
+        if($_POST["tip"]=="Public" || $_POST["tip"]=="Privat"){
             $_POST["tip"][0]='p';
             if($_user->selectDashboard($_POST["nume"])==null){
                 $_user->addDashboard($_POST["nume"],$_POST["tip"]);

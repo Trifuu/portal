@@ -17,7 +17,7 @@ defined("autorizare") or die("Nu aveti autorizare");
                 <input type="text" value="" class="mdl-textfield__input" id="d1" readonly>
                 <input type="hidden" value="" name="d1">
                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                <label for="d1" class="mdl-textfield__label">Select Dashboard</label>
+                <label for="d1" class="mdl-textfield__label">Selectează Dashboard</label>
                 <ul id="home_select_dashboard" for="d1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                     <?php for ($i = 0; $i < count($dashboards); $i++) { ?>
                         <li data-poz="<?php echo $i; ?>" class="mdl-menu__item item_dash" <?php echo $i == $current_dashboard ? 'data-selected=\"true\"' : ''; ?>>
@@ -28,9 +28,8 @@ defined("autorizare") or die("Nu aveti autorizare");
             </div>
             <button style="float: right;" class="mdl-button mdl-button--icon mdl-button--colored"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
         </div>
-         
-        <?php 
-        for ($i = 0; $i < count($sensors); $i++) { ?>
+
+        <?php for ($i = 0; $i < count($sensors); $i++) { ?>
             <div class = "mdl-card mdl-cell mdl-cell--2-col mdl-shadow--16dp card_senzor" style="background-color: white;min-height: 0px;">
                 <div class="mdl-card__title  mdl-card--border" style="padding: 5px;background-color: #b2bec3;">
                     <span style="margin-left: 3px;"><?php echo $sensors[$i]["nume"]; ?></span>
@@ -39,24 +38,26 @@ defined("autorizare") or die("Nu aveti autorizare");
                 </div>
                 <div class="mdl-card__title" style="padding: 0px;padding-top: 5px;font-size: 22px;">
                     <div class="mdl-layout-spacer"></div>
-                    <?php echo $sensors[$i]["tip"]; ?>&nbsp;&nbsp;<i class="fa fa-thermometer-three-quarters" aria-hidden="true"></i>
+                    <?php echo $sensors[$i]["tip"]; ?>&nbsp;&nbsp; <?php tip_simbol($sensors[$i]["tip"]); ?>
                     <div class="mdl-layout-spacer"></div>
                 </div>
                 <div class="mdl-card__title mdl-card--border" style="padding: 5px;font-size: 35px;font-weight: 300;">
                     <div class="mdl-layout-spacer"></div>
-                    25 °C
+                    <?php echo $sensors[$i]["valoare"] == "" ? "&#8203;" : $sensors[$i]["valoare"] . " " . $sensors[$i]["um"]; ?>
                     <div class="mdl-layout-spacer"></div>
                 </div>
                 <div class="mdl-card__title" style="padding: 5px;">
-                    <button class="mdl-button mdl-button--icon mdl-button--colored">∑</button>
+                    <button data-poz="<?php echo $i; ?>" data-id="<?php echo $sensors[$i]["id"]; ?>" class="mdl-button mdl-button--icon mdl-button--colored operation_senzor">∑</button>
                     <div class="mdl-layout-spacer"></div>
-                    <button class="mdl-button mdl-button--icon mdl-button--colored"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                    <button data-id="<?php echo $sensors[$i]["id"]; ?>" class="mdl-button mdl-button--icon mdl-button--colored delete_senzor"><i style="color:red;" class="fa fa-trash" aria-hidden="true"></i></button>&nbsp;
+                    <div class="mdl-layout-spacer"></div>
+                    <button data-poz="<?php echo $i; ?>" data-id="<?php echo $sensors[$i]["id"]; ?>" class="mdl-button mdl-button--icon mdl-button--colored edit_senzor"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
                 </div>
             </div>
         <?php } ?>
-        <div id="card_add_senzor" class = "mdl-card mdl-cell mdl-cell--2-col" style="background-color: #dfe6e9;min-height: 0px;<?php echo count($dashboards)>0? "":"display:none;"; ?>">
+        <div id="card_add_senzor" class = "mdl-card mdl-cell mdl-cell--2-col" style="background-color: #dfe6e9;min-height: 0px;<?php echo count($dashboards) > 0 ? "" : "display:none;"; ?>">
             <div style="top: 50px;text-align: center;height: 80px;">
-                Add Sensor<br>
+                Adaugă senzor<br>
                 <button id="add_sensor" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
                     <i class="material-icons">add</i>
                 </button>
@@ -66,7 +67,7 @@ defined("autorizare") or die("Nu aveti autorizare");
 
 </main>
 <div style="display:none" id="add_form">
-    
+
 </div>
 <div id="modal_add_dashboard" class="modal">
 
@@ -74,7 +75,7 @@ defined("autorizare") or die("Nu aveti autorizare");
     <div class="modal-content">
         <div class="modal-header">
             <span class="close1 close">&times;</span>
-            Add a new Dashboard
+            Adaugă un nou Dashboard
         </div>
         <div class="modal-body">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -87,12 +88,12 @@ defined("autorizare") or die("Nu aveti autorizare");
                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                 <label for="tip_dashboard" class="mdl-textfield__label">Tip</label>
                 <ul for="tip_dashboard" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                    <li class="mdl-menu__item" data-selected="true">Private</li>
+                    <li class="mdl-menu__item" data-selected="true">Privat</li>
                     <li class="mdl-menu__item">Public</li>
                 </ul>
             </div><br/>
             <button id="submit_new_dashboard" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                Add
+                Adaugă
             </button>
         </div>
     </div>
@@ -104,18 +105,18 @@ defined("autorizare") or die("Nu aveti autorizare");
     <div class="modal-content">
         <div class="modal-header">
             <span class="close2 close">&times;</span>
-            Add a new Sensor
+            Adaugă un nou senzor
         </div>
         <div class="modal-body">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                <input class="mdl-textfield__input" type="text" id="nume_sensor" value="Sensor <?php echo (count($sensors) + 1); ?>">
+                <input class="mdl-textfield__input" type="text" id="nume_sensor" value="Senzor <?php echo (count($sensors) + 1); ?>">
                 <label class="mdl-textfield__label" for="nume_sensor">Nume</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
                 <input type="text" value="" class="mdl-textfield__input" id="decimals_sensor" readonly>
                 <input type="hidden" value="" name="decimals_sensor">
                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                <label for="decimals_sensor" class="mdl-textfield__label">Number of decimals shown</label>
+                <label for="decimals_sensor" class="mdl-textfield__label">Număr de zecimale</label>
                 <ul for="decimals_sensor" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                     <li class="mdl-menu__item" data-selected="true">0</li>
                     <li class="mdl-menu__item">1</li>
@@ -125,20 +126,19 @@ defined("autorizare") or die("Nu aveti autorizare");
                 </ul>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-                <input type="text" value="" class="mdl-textfield__input" id="um_sensor" readonly>
-                <input type="hidden" value="" name="um_sensor">
+                <input type="text" value="" class="mdl-textfield__input" id="tip_sensor" readonly>
+                <input type="hidden" value="" name="tip_sensor">
                 <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                <label for="um_sensor" class="mdl-textfield__label">Tip</label>
-                <ul for="um_sensor" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                    <li class="mdl-menu__item" data-selected="true">Number</li>
-                    <li class="mdl-menu__item">Celsius</li>
-                    <li class="mdl-menu__item">Percent</li>
-                    <li class="mdl-menu__item">Kelvin</li>
-                    <li class="mdl-menu__item">Lux</li>
+                <label for="tip_sensor" class="mdl-textfield__label">Tip</label>
+                <ul for="tip_sensor" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                    <li class="mdl-menu__item" data-selected="true">Număr</li>
+                    <li class="mdl-menu__item">Temperatură</li>
+                    <li class="mdl-menu__item">Luminozitate</li>
+                    <li class="mdl-menu__item">Umiditate</li>
                 </ul>
             </div><br/>
             <button id="submit_new_sensor" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                Add
+                Adaugă
             </button>
         </div>
     </div>
@@ -150,16 +150,85 @@ defined("autorizare") or die("Nu aveti autorizare");
     <div class="modal-content">
         <div class="modal-header">
             <span class="close3 close">&times;</span>
-            Chart
+            Grafic
+        </div>
+        <div class="modal-body grafic_content">
+        </div>
+    </div>
+</div>
+
+<div id="modal_edit_sensor" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close4 close">&times;</span>
+            Edit senzor
         </div>
         <div class="modal-body">
-            <canvas id="myChart" width="100" height="100"></canvas>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                <input class="mdl-textfield__input" type="text" id="edit_nume_sensor" value="">
+                <label class="mdl-textfield__label" for="edit_nume_sensor">Nume</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                <input type="text" value="" class="mdl-textfield__input" id="edit_decimals_sensor" readonly>
+                <input type="hidden" value="" name="edit_decimals_sensor">
+                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                <label for="edit_decimals_sensor" class="mdl-textfield__label">Număr de zecimale</label>
+                <ul id="lista_zecimale_edit" for="edit_decimals_sensor" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                    <li class="mdl-menu__item">0</li>
+                    <li class="mdl-menu__item">1</li>
+                    <li class="mdl-menu__item">2</li>
+                    <li class="mdl-menu__item">3</li>
+                    <li class="mdl-menu__item">4</li>
+                </ul>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+                <input type="text" value="" class="mdl-textfield__input" id="edit_tip_sensor" readonly>
+                <input type="hidden" value="" name="edit_tip_sensor">
+                <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                <label for="edit_tip_sensor" class="mdl-textfield__label">Tip</label>
+                <ul id="lista_tip_edit" for="edit_tip_sensor" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                    <li class="mdl-menu__item">Număr</li>
+                    <li class="mdl-menu__item">Temperatură</li>
+                    <li class="mdl-menu__item">Luminozitate</li>
+                    <li class="mdl-menu__item">Umiditate</li>
+                </ul>
+            </div><br/>
+            <button id="save_senzor_edit" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                Salvează
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="modal_operation_sensor" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close5 close">&times;</span>
+            Calculează
+        </div>
+        <div class="modal-body operation_body">
+
+        </div>
+        <div style="text-align:center;">
+            <!-- Accent-colored raised button -->
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+                Run
+            </button>
+        </div>
+        <div style="height:100px;padding: 10px;margin-bottom: 3px;">
+            <textarea readonly="true" style="height: 100%;width: 100%;"></textarea>
         </div>
     </div>
 
 </div>
+
 <script>
     var nr_dashboards =<?php echo count($dashboards); ?>;
-    var dashboard_id=<?php echo count($dashboards)==0? -1:$dashboards[$current_dashboard]["id"]; ?>;
-    var poz_dashboard=<?php echo $current_dashboard; ?>;
+    var dashboard_id =<?php echo count($dashboards) == 0 ? -1 : $dashboards[$current_dashboard]["id"]; ?>;
+    var poz_dashboard =<?php echo $current_dashboard; ?>;
+    var sensors = <?php echo json_encode($sensors); ?>;
 </script>

@@ -29,6 +29,10 @@ if(!$_user->isLogged() && $page!="before_login"){
     $page="before_login";
     $view="login";
 }
+if($_user->isLogged() && $page=="before_login"){
+    $page="home";
+    $view="home";
+}
 
 switch ($page):
     case "home":

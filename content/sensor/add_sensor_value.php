@@ -8,5 +8,5 @@ defined("autorizare") or die("Nu aveti autorizare");
 
 $title_app_title = "Add value";
 $value=$_GET["value"];
-$_user->addSensorValue(4,$value);
+$_user->addSensorValue(3,$value);
 $content=$value;

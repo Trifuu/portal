@@ -22,11 +22,11 @@ defined("autorizare") or die("Nu aveti autorizare");
             <a class="mdl-layout-title no_decoration" href='<?php getUrl("contact", "dashboard", true); ?>'>Contact</a>
         </div>
         <?php if ($_user->isLogged()) { ?>
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+            <button style="height: 100%;" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="options">
                 <i class="material-icons">more_vert</i>
             </button>
-            <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-                <li class="mdl-menu__item"><a href="<?php getUrl("home", "disconnect",true) ?>">Disconnect</a></li>
+            <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="options">
+                <li class="mdl-menu__item" style="font-size: 16px;"><a style="text-decoration: none;" href="<?php getUrl("home", "disconnect", true) ?>">Disconnect</a></li>
             </ul>
         <?php } ?>
     </div>
