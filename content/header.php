@@ -8,26 +8,35 @@
 defined("autorizare") or die("Nu aveti autorizare");
 ?>
 
-<header class="mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
-    <div class="mdl-layout__header-row">
-        <div class="link_empty dimension_header_cell">
-            <a class="mdl-layout-title no_decoration" href='<?php echo _SITE_BASE; ?>'>Home</a>
-        </div>
-        <div class="mdl-layout-spacer"></div>
-
-        <div class="link_empty dimension_header_cell">
-            <a class="mdl-layout-title no_decoration" href='<?php getUrl("about", "dashboard", true); ?>'>About</a>
-        </div>
-        <div class="link_empty dimension_header_cell">
-            <a class="mdl-layout-title no_decoration" href='<?php getUrl("contact", "dashboard", true); ?>'>Contact</a>
-        </div>
-        <?php if ($_user->isLogged()) { ?>
-            <button style="height: 100%;" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="options">
-                <i class="material-icons">more_vert</i>
-            </button>
-            <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="options">
-                <li class="mdl-menu__item" style="font-size: 16px;"><a style="text-decoration: none;" href="<?php getUrl("home", "disconnect", true) ?>">Disconnect</a></li>
+<header style="position: relative;z-index: 20;<?php echo($page == "home" && $view == "dashboard") ? 'display:none;' : ''; ?>position: fixed;top: 0px;width:100%;" class="afisare">
+    <nav class="navbar navbar-expand-md navbar-light"  style="background: #f1f2f6;font-size:20px;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a href="<?php echo _SITE_BASE; ?>"><img src="<?php echo _SITE_CSS; ?>img/logo.png" style="width:150px;height:50px;"></a>
+        <div class="collapse navbar-collapse" id="navbarsExample02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" style="color: black;" href="<?php echo _SITE_BASE; ?>#top">Top <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" style="color: black;" href="<?php echo _SITE_BASE; ?>#about">About</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" style="color: black;" href="<?php echo _SITE_BASE; ?>#solution">Solution</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" style="color: black;" href="<?php echo _SITE_BASE; ?>#team">Team</a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" style="color: black;" href="<?php echo _SITE_BASE; ?>#contact">Contact</a>
+                </li>
             </ul>
-        <?php } ?>
-    </div>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item ">
+                    <a class="nav-link" style="color: black;" href="<?php getUrl("home", "portal", true) ?>">Log in</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </header>

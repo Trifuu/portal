@@ -1,9 +1,9 @@
-Options +FollowSymLinks -MultiViews -Indexes
+Options +FollowSymLinks -MultiViews +Indexes
 
 DirectoryIndex index.php index.html index.htm
 
 RewriteEngine On
-RewriteBase /hermes/
+RewriteBase /hermes3/
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

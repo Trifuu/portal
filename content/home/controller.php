@@ -10,11 +10,11 @@ defined("autorizare") or die("Nu aveti autorizare");
 
 
 switch ($view):
-    case "home":
-        require_once _ROOT_CONTENT . $page . "/view_home.php";
+    case "dashboard":
+        require_once _ROOT_CONTENT . $page . "/view_dashboard.php";
         break;
-    case "disconnect":
-        require_once _ROOT_CONTENT . $page . "/disconnect.php";
+    case "portal":
+        require_once _ROOT_CONTENT . $page . "/view_portal.php";
         break;
     default:
         header("HTTP/1.0 404 Not Found");

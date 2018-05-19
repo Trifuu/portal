@@ -1,144 +1,40 @@
-.no_decoration{
-    text-decoration: none;
-}
-.dimension_header_cell{
-    margin-left: 10px;
-    height:80%;
-    text-align: center;
-    display: flex;
-    align-items: center;
-}
-.login_box{
-    height: 330px;
-    width: 350px;
-    background-color: #dfe6e9;
-    padding: 35px;
-}
-.register_box{
-    width: 450px;
-    background-color: #dfe6e9;
-    padding: 35px;
-}
-.login_button{
-    display: inline-block;
-    width: 137px;
-    height: 40px;
-    font-size: 18px;
-    color: black;
-    background-color: #74b9ff;
-    margin-top: 30px;
-}
-.error_page{
-    width: 100%;
-    height: -webkit-calc(100% - 97px);
-    height: -moz-calc(100% - 97px);
-    height: calc(100% - 97px);
-    background: #2980b9;
-    display: flex;
-    align-items: center;
+.background_image_top{
+    background-image: url('img/background top.png');
+    background-size: cover;
     height: 100%;
+    width:100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color:#ecf0f1;
+    padding:0px;
+    opacity: 0.4;
+    filter: alpha(opacity=50);
+    position:absolute;
+    z-index:-1;
 }
-.error_page h1{
-    color: #fff;
+
+/*@media screen and (min-height : 266px) {
+    .portal{
+        top:66px;
+    }
+}*/
+.card_portal{
+    min-width: 15rem;
+    max-width: 20rem;
+    display: inline-block;
+    min-height: 300px;
+}
+.portal_header_card{
+    background-color: #2c3e50;
+    color:white;
+    text-align: left;
     font-size: 20px;
-    font-weight: 300;
-    text-align: center;
-    margin: auto;
 }
-.error_page h1 span{
-    font-weight: bold;
-    font-size: 150px;
-}
-.error_page h1 p{
-    color: #fff;
-    font-size: 40px;
-}
-.h1-404{
-    text-align:center;
-    font-weight: 300;
-    color: #fff;
-    margin: auto;
-    font-size: 20px;
-}
-
-.h1-404 span{
-    font-weight: bold;
-    font-size: 150px;
-}
-
-.h1-404 a{
-    color: #fff;
-    font-size: 16px;
-}
-.graph_home_box_icon{
-    float: right;
-    margin-right: 6px;
-}
-
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 0;
-    border: 1px solid #888;
-    width: 400px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
-    animation-name: animatetop;
-    animation-duration: 0.4s;
-    border-radius: 10px;
-}
-
-/* Add Animation */
-@-webkit-keyframes animatetop {
-    from {top:-300px; opacity:0} 
-    to {top:0; opacity:1}
-}
-
-@keyframes animatetop {
-    from {top:-300px; opacity:0}
-    to {top:0; opacity:1}
-}
-
-/* The Close Button */
-.close {
-    color: white;
-    float: right;
-    font-size: 35px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.modal-header {
-    padding: 15px;
-    background-color: #dfe4ea;
-    text-align: center;
-    font-size: 22px;
-    font-weight: 200px;
-}
-
-.modal-body {
-    padding: 15px;
+.portal_title_card{
+    background-color: #95afc0;
+    color:white;
+    text-align: left;
+    font-size: 14px;
+    padding: 4px;
+    padding-left: 20px;
 }

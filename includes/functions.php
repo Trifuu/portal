@@ -9,8 +9,8 @@
 defined("autorizare") or die("Nu aveti autorizare");
 
 function getUrl($page, $view, $echo = false, $query = []) {
-    //$curl = _SITE_BASE . "$page/$view/";
-    $curl = _SITE_BASE . "?page=$page&view=$view";
+    $curl = _SITE_BASE . "$page/$view/";
+    //$curl = _SITE_BASE . "?page=$page&view=$view";
     if (count($query)) {
         $cnt = 0;
         foreach ($query as $key => $value) {
@@ -34,14 +34,4 @@ function var_dump_custom($output) {
     echo "<pre>";
     var_dump($output);
     echo "</pre>";
-}
-
-function tip_simbol($tip) {
-    if ($tip == "Temperatură") {
-        echo '<i style="color:red" class="fa fa-thermometer-three-quarters" aria-hidden="true"></i>';
-    } else if ($tip == "Luminozitate") {
-        echo '<i style="color:yellow" class="fa fa-sun-o" aria-hidden="true"></i>';
-    } else if ($tip == "Umiditate") {
-        echo '<i style="color:blue" class="fa fa-tint" aria-hidden="true"></i>';
-    }
 }

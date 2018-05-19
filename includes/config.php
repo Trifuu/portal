@@ -25,19 +25,20 @@ $title_app_title = "Default Title";
 $site = "local";
 
 if ($site == "local") {
-    define("_SITE_BASE", "http://localhost/hermes/");
-
-    define("_SITE_CSS", _SITE_BASE . "assets/css/");
-    define("_SITE_JS", _SITE_BASE . "assets/js/");
+    define("_SITE_BASE", "http://localhost/hermes3/");
 
     # -- MySQL DB intialisation
-    Db::initDb("Hermes", "root", "nan587","localhost");
+    //Db::initDb("Hermes", "root", "nan587","localhost");
+} else {
+    define("_SITE_BASE", "http://5.12.163.16/");
 }
+define("_SITE_CSS", _SITE_BASE . "assets/css/");
+define("_SITE_JS", _SITE_BASE . "assets/js/");
 
-$_user=new User();
+//$_user=new User();
 
 # -- variable declare
 $sid = session_id();
 $sha256_session_id = hash("sha256", $sid);
 
-$_user->login($sha256_session_id);
+//$_user->login($sha256_session_id);

@@ -11,13 +11,6 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/var/www/html/hermes/content/before_login/controller.php</file>
-            <file>file:/var/www/html/hermes/content/before_login/view_login.php</file>
-            <file>file:/var/www/html/hermes/assets/js/app/home/dashboard.js</file>
-            <file>file:/var/www/html/hermes/assets/js/app/home/home.js</file>
-            <file>file:/var/www/html/hermes/index.php</file>
-            <file>file:/var/www/html/hermes/includes/Class/User.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
