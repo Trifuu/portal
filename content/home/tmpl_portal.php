@@ -15,20 +15,25 @@ defined("autorizare") or die("Nu aveti autorizare");
                 <tr>
                     <td style="text-align: center;">
                         <div class="card border-primary mb-3 card_portal">
-                            <div class="card-header portal_header_card"><i class="fas fa-chart-area fa-lg"></i> Monitoring</div>
+                            <a style="text-decoration: none;" href="<?php getUrl("grafana", "dashboard", true); ?>">
+                                <div class="card-header portal_header_card">
+                                    <i class="fas fa-chart-area fa-lg"></i> 
+                                    Monitoring
+                                </div>
+                            </a>
                             <table class="table table-bordered table-sm" style="font-size: 12px;">
                                 <tbody>
                                     <tr>
-                                        <td>Room 1</td>
+                                        <td>Demo</td>
                                         <td>Max value</td>
-                                        <td>48</td>
+                                        <td id="max"><?php echo maxInflux("demo", "select max(value) from temperature"); ?></td>
                                     </tr>
                                     <tr>
-                                        <td>Room 2</td>
+                                        <td>Demo</td>
                                         <td>Min value</td>
-                                        <td>4</td>
+                                        <td id="min"><?php echo maxInflux("demo", "select min(value) from temperature"); ?></td>
                                     </tr>
-                                    <tr>
+<!--                                    <tr>
                                         <td>Room 3</td>
                                         <td>Pressure</td>
                                         <td>80%</td>
@@ -37,14 +42,19 @@ defined("autorizare") or die("Nu aveti autorizare");
                                         <td>Room 4</td>
                                         <td>Consume</td>
                                         <td>70%</td>
-                                    </tr>
+                                    </tr>-->
                                 </tbody>
                             </table>
                         </div>
                     </td>
                     <td style="text-align: center;">
                         <div class="card border-primary mb-3 card_portal">
-                            <div class="card-header portal_header_card"><i class="fas fa-broadcast-tower"></i> LoRa</div>
+                            <a style="text-decoration: none;" href="<?php getUrl("node-red", "dashboard", true); ?>">
+                                <div class="card-header portal_header_card">
+                                    <i class="fas fa-broadcast-tower"></i> 
+                                    LoRa
+                                </div>
+                            </a>
                             <table class="table table-bordered table-sm" style="font-size: 12px;">
                                 <tbody>
                                     <tr>
@@ -88,7 +98,12 @@ defined("autorizare") or die("Nu aveti autorizare");
                     </td>
                     <td style="text-align: center;">
                         <div class="card border-primary mb-3 card_portal">
-                            <div class="card-header portal_header_card"><i class="fas fa-chart-line"></i> Prediction</div>
+                            <a style="text-decoration: none;" href="<?php getUrl("predictie", "dashboard", true); ?>">
+                                <div class="card-header portal_header_card">
+                                    <i class="fas fa-chart-line"></i> 
+                                    Prediction
+                                </div>
+                            </a>
                             <div class="card-header portal_title_card">Data<span style="float: right;margin-right:10px;"><i class="fas fa-plus"></i></span></div>
                             <table class="table table-bordered table-sm" style="font-size: 12px;">
                                 <tbody>

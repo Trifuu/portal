@@ -25,6 +25,15 @@ switch ($page):
     case "home":
         require_once _ROOT_CONTENT . "home/controller.php";
         break;
+    case "predictie":
+        require_once _ROOT_CONTENT . "predictie/controller.php";
+        break;
+    case "node-red":
+        require_once _ROOT_CONTENT . "node-red/controller.php";
+        break;
+    case "grafana":
+        require_once _ROOT_CONTENT . "grafana/controller.php";
+        break;
     default:
         header("HTTP/1.0 404 Not Found");
         $content = _ROOT_CONTENT . "404.php";

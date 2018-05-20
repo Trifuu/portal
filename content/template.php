@@ -38,7 +38,7 @@ defined("autorizare") or die("Nu aveti autorizare");
 
 
         <script>var _SITE_BASE = "<?php echo _SITE_BASE; ?>";</script>
-        <script src="<?php echo _SITE_JS ?>jquery-3.3.1.slim.min.js"></script>
+        <script src="<?php echo _SITE_JS ?>jquery-3.3.1.min.js"></script>
         <script src="<?php echo _SITE_JS ?>popper.min.js"></script>
         <script src="<?php echo _SITE_JS ?>bootstrap.min.js"></script>
         <?php

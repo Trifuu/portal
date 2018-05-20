@@ -35,3 +35,12 @@ function var_dump_custom($output) {
     var_dump($output);
     echo "</pre>";
 }
+function fluxdb($dbName,$query,$host='localhost',$port=8086){
+    $output = shell_exec('influx -database '.$dbName.' -host '.$host.' -port '.$port.
+            ' -execute "'.$query.'" -format json');
+    
+    return json_decode($output);
+}
+function maxInflux($dbName,$query){
+    return fluxdb($dbName,$query)->results[0]->series[0]->values[0][1];
+}

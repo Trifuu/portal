@@ -41,4 +41,5 @@ define("_SITE_JS", _SITE_BASE . "assets/js/");
 $sid = session_id();
 $sha256_session_id = hash("sha256", $sid);
 
+
 //$_user->login($sha256_session_id);
